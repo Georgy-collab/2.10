@@ -1,11 +1,12 @@
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        File output = new File("output.txt");
+        output.createNewFile();
+        PrintWriter writer = new PrintWriter(output);
         try {
             Scanner sc = new Scanner(new File("input.txt"));
             String[] s = sc.nextLine().split(" ");
@@ -26,15 +27,17 @@ public class Main {
             if ((Double.parseDouble(s[2]) == 0) & ("/".equals(s[1]))) {
                 throw new Exception("Error! Division by zero");
             }
-            System.out.println(result);
+            writer.println(result);
         }
         catch (NumberFormatException e) {
-            System.out.println("Error! Not number");
+            writer.println("Error! Not number");
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
+            writer.println(e.getMessage());
         }
-
+        finally {
+            writer.close();
+        }
 
     }
 }
